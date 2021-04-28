@@ -23,4 +23,19 @@ ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE 3000/tcp
 
+USER root
+
+RUN dnf -y update-minimal --security --sec-severity=Important --sec-severity=Critical && dnf clean all
+
+COPY ./licenses /licenses
+
+USER default
+
+LABEL name="Typescript GraphQL UI Patterns" \
+      vendor="IBM" \
+      version="v1.0.0" \
+      release="1" \
+      summary="This is an example of a container image." \
+      description="This container image will deploy a Typescript GraphQL App"
+
 CMD ["npm","run","serve"]
